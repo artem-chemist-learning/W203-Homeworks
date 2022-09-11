@@ -1,0 +1,31 @@
+---
+title: "Unit 1 proofs"
+author: "Artem Lebedev"
+output: pdf_document
+---
+
+#### 1. Let's prove that $P(A \cap B)$ even exists: $\exists A \cap B \equiv \exists x:x\in A, x \in B$
+
+Let's assume the opposite, i.e. $$\nexists x:x\in A, x \in B \equiv A \cap B = \emptyset$$
+
+with this assumption $$P(\Omega) = P(A) + P(B) + P(\overline{A \cup B})$$
+
+$P(\Omega) = 1$ because of axiom, calculating the expression above:
+
+$$P(\overline{A \cup B}) = -0.25$$
+
+which is against the axioms, therefore original assumption is false
+
+#### 2. Now we can prove that given a set of events $\ A = \{A_0, A_1...A_n\}$ the highest probability of all events occurring at the same time $P(\cap_{i = 0}^{n} A_i)_{max} = P(A_{min})$
+
+i.e. probability of the intersection of a series of events can not exceed the probability of the smallest event but can be equal to it.
+
+Note that $\exists x \in \cap_{i = 0}^{n} A_i : x \notin A_i$ is impossible by definition of union, therefore: $$\forall A_i \in\ A,  \cap_{i = 0}^{n} A_i \le A_i$$
+
+The statement above holds for $A_{min}$ just as well as for any other $A_i$, therefore: $$P(\cap_{i = 0}^{n} A_i) \le P(A_{min})$$
+
+At the same time $x \in \cap_{i = 0}^{n} A_i$ can include at least $\forall x \in A_{min}$, therefore: $$P(\cap_{i = 0}^{n} A_i)_{max} \ge P(A_{min})$$
+
+Combining these two statements
+
+$$P(\cap_{i = 0}^{n} A_i)_{max} = P(A_{min})$$ In case of the events in question, $P(A \cap B)_{max} = P(A) = 0.5$

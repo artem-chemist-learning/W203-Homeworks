@@ -1,0 +1,14 @@
+---
+title: "Unit 1 proofs"
+author: "Artem Lebedev"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+We have already established that $P(A \cap B) \in [0.25, 0.5]$
+
+$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$ by definition, therefore $$P(A \mid B) \in \left[\frac{0.25}{0.75}, \frac{0.5}{0.75}\right]$$
