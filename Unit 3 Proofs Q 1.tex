@@ -1,17 +1,29 @@
 
 \documentclass{article}
 \usepackage{amsmath}
+\usepackage{setspace}
 \author{Artem Lebedev}
-\title{W203, Unit 3 Proof, Q1.1}
+\title{W203, Unit 3 Proof}
 \date{\today}
+
 
 \begin{document}
 
 \maketitle
 
-$$
-Corr[aX+b,X]= \frac{Cov[aX+b,X]}{\sqrt{Var[aX+b]}*\sqrt{Var[X]}} = \frac{a*Cov[X,X]}{{|a|}*\sqrt{Var[X]}*\sqrt{Var[X]}}\\
-= \frac{a}{|a|}*Corr[X,X] = \frac{a}{|a|}
-$$
+\begin{enumerate}
+\item Correlation between $X$ and $aX+b$
+
+\begin{align*}
+Corr[aX+b,X] = \frac{Cov[aX+b,X]}{\sqrt{Var[aX+b]}*\sqrt{Var[X]}}\\[1em] \frac{a*Cov[X,X]}{{|a|}*\sqrt{Var[X]}*\sqrt{Var[X]}} = \\[1em]
+\frac{a}{|a|}*Corr[X,X] = \frac{a}{|a|} =\\[1em]
+\begin{cases}
+1, a>0\\
+-1, a<0\\
+\end{cases}  
+\end{align*}
+
+\item Heavy Tails
+\end{enumerate}
 
 \end{document}
