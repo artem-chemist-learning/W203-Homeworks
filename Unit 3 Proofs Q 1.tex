@@ -2,6 +2,8 @@
 \documentclass{article}
 \usepackage{amsmath}
 \usepackage{setspace}
+\usepackage{geometry}
+\geometry{legalpaper, portrait, margin=1in}
 \author{Artem Lebedev}
 \title{W203, Unit 3 Proof}
 \date{\today}
@@ -15,15 +17,27 @@
 \item Correlation between $X$ and $aX+b$
 
 \begin{align*}
-Corr[aX+b,X] = \frac{Cov[aX+b,X]}{\sqrt{Var[aX+b]}*\sqrt{Var[X]}}\\[1em] \frac{a*Cov[X,X]}{{|a|}*\sqrt{Var[X]}*\sqrt{Var[X]}} = \\[1em]
-\frac{a}{|a|}*Corr[X,X] = \frac{a}{|a|} =\\[1em]
-\begin{cases}
-1, a>0\\
--1, a<0\\
-\end{cases}  
+	Corr[aX+b,X] = \frac{Cov[aX+b,X]}{\sqrt{Var[aX+b]}*\sqrt{Var[X]}}\\[1em] =\frac{a*Cov[X,X]}{{|a|}*\sqrt{Var[X]}*\sqrt{Var[X]}}\\[1em]
+	=\frac{a}{|a|}*Corr[X,X] = \\[1em] \frac{a}{|a|} =
+	\begin{cases}
+	1, a>0\\
+	-1, a<0\\
+	\end{cases}  
 \end{align*}
 
-\item Heavy Tails
+\item[2] Heavy Tails
+\item[2.1] Finite expectation\\
+I will rely on the solution of well known "Basel problem":  $\sum_{n = 1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$\\[2em]From the definition of expectation:
+\begin{align*}
+	E[M]=\sum_{x = 1}^{\infty}x*p_M(x)=\sum_{x = 1}^{\infty}x*\frac{c}{x^3} = \frac{c*\pi^2}{6}
+\end{align*}
+which is a finite value.
+\item[2.2] Infinite variance\\
+$$V[M]=E[x^2]-E^2[x]\text{, almost definition}$$
+$$V[M]=\sum_{x = 1}^{\infty}x^2*p_M(x) -  \left(\frac{c*\pi^2}{6}\right)^2$$
+Note that:
+$$\sum_{x = 1}^{\infty}x^2*p_M(x) = \sum_{x = 1}^{\infty}\frac{cx^2}{x^3} =\sum_{x = 1}^{\infty}\frac{c}{x}$$
+which is a sum of harmonic series, known to be divergent, infinetely large. Therefore $V[M]$ is difference of a infinte number and finite number, which is infinite.
 \end{enumerate}
 
 \end{document}
