@@ -1,0 +1,57 @@
+---
+title: "Unit 09"
+author: "A. Lebedev"
+date: "2022-10-25"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(fec16)
+
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r renigma}
+renigma <- function(n){
+  x = runif(n)
+  y = runif(n, min=0, max = (1-x)^2)
+  data.frame(x=x,y=y)
+}
+plot(renigma(100))
+```
+
+```{r mystery}
+rmystery <- function(n){
+  x = runif(n)
+  y = runif(n, min=0, max = 1/x)
+  data.frame(x=x,y=y)
+}
+plot(rmystery(100000))
+```
+
+```{r experiment, echo=FALSE}
+  experiment_e <-rmystery(1000)
+  my_model<-lm(x~y, data = experiment_e)
+  final_distr<-data.frame(coefficients(my_model)[["y"]])
+```
+
+
+```{r experiment, echo=FALSE}
+for (i in 1:1000){
+  experiment_e <-rmystery(10000)
+  my_model<-lm(x~y, data = experiment_e)
+  final_distr<-rbind(final_distr, coefficients(my_model)[["y"]])
+}
+
+ggplot(data = final_distr) + 
+aes(x = coefficients.my_model....y...) + 
+geom_histogram(bins = 50)
+
+```
+'''
+```{r fec16, echo=FALSE}
+  fec16::candidates
+```
+```

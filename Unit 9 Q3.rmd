@@ -1,0 +1,42 @@
+---
+title: "Unit 9 Q3.4"
+author: "A. Lebedev"
+date: "2022-10-27"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(fec16)
+```
+
+## 1. Load data into two dataframes
+
+```{r load data, echo=FALSE}
+df_house <- fec16::results_house
+df_camp <- fec16::campaigns
+```
+
+## 2. Join two dataframes
+
+
+```{r join, echo=TRUE}
+joint_df <- inner_join(df_house, df_camp, by = 'cand_id')
+```
+
+## 3. Add the column `candidate_party`
+```{r mutate, echo=TRUE}
+joint_df <- mutate(joint_df, candidate_party = case_when(party == "D"~"Democrat",
+                                                         party == "R"~ "Republican",
+                                                         TRUE ~ "Other"))
+```
+
+
+```{r plot, echo=FALSE, out.width= "70%"}
+ggplot(data = joint_df) + 
+  aes(x = ttl_disb, y = general_votes, color = candidate_party) + 
+  geom_point() +
+  labs(y= "Genral votes", x = "Spending, USD", color='Candidate Party') + 
+  ggtitle("General votes vs spending")
+```

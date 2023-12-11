@@ -1,0 +1,46 @@
+---
+title: "Unit 9 Q 3.6"
+author: "A. Lebedev"
+date: "2022-10-27"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(stargazer)
+```
+
+## 1. Load data
+
+```{r load data, echo=FALSE}
+df_house <- fec16::results_house
+df_camp <- fec16::campaigns
+
+joint_df <- inner_join(df_house, df_camp, by = 'cand_id')
+
+joint_df <- mutate(joint_df, candidate_party = case_when(party == "D"~"Democrat",
+                                                         party == "R"~ "Republican",
+                                                         TRUE ~ "Other"))
+```
+
+
+## 2. Filter data to remove NAs, generate the model
+```{r linear model, echo=TRUE, message=FALSE}
+
+joint_df <- filter(joint_df, general_votes >=0)
+my_model <- lm(formula = general_votes ~ candidate_party, data = joint_df)
+summary(my_model)
+
+```
+
+## 3. Build a table
+```{r table, echo=TRUE, results='asis'}
+
+stargazer(my_model,
+      title="Model: Votes vs Spendings and Party affiliation (Base case is Democrat)",
+      dep.var.labels=c("Votes"),
+      covariate.labels=c("Campaign spending", "Is Independent?","Is Republican?", "Intercept"),
+      no.space=TRUE
+     )
+```

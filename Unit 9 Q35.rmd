@@ -1,0 +1,44 @@
+---
+title: "Unit 9 Q3.5"
+author: "A. Lebedev"
+date: "2022-10-27"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(stargazer)
+```
+
+## 1. Load data
+
+```{r load data, echo=FALSE}
+df_house <- fec16::results_house
+df_camp <- fec16::campaigns
+
+joint_df <- inner_join(df_house, df_camp, by = 'cand_id')
+
+joint_df <- mutate(joint_df, candidate_party = case_when(party == "D"~"Democrat",
+                                                         party == "R"~ "Republican",
+                                                         TRUE ~ "Other"))
+```
+
+
+## 2. Filter data to remove NAs and generate the model
+```{r linear model, echo=TRUE}
+
+joint_df <- filter(joint_df, general_votes >=0)
+my_model <- lm(formula = general_votes ~ ttl_disb + candidate_party, data = joint_df)
+
+```
+
+## 3. Evaluate residuals
+```{r residuals, echo=TRUE, message = FALSE, out.width= "70%"}
+
+ggplot(data = joint_df) +
+    aes(x = my_model$residuals) +
+    geom_histogram(fill = 'steelblue', color = 'black') +
+    labs(title = 'Histogram of Residuals', x = 'Residuals', y = 'Frequency')
+```
+Two main assumptions for the large sample OLS model is i.i.d. sampling and the number of observations sufficient for the statistics to exhibit asymptotic behavior due to Central Limit Theorem. I.I.D. assumption is likely to be satisfied at least loosely, because the amount of money raised and the number of votes of one candidate. The residuals of the model plotted above are distributed almost normally, with a few rare exceptions. Additionally, there are almost a thousand observations. That gives us hope that large number of observations is sufficient for our  statistics to be distributed almost normally.   
